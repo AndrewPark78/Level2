@@ -26,18 +26,21 @@ public class GameWindow implements KeyListener{
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
+		InputManager.keyTyped(e);
 		panel.keyTyped(e);
 	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
+		InputManager.keyPressed(e);
 		panel.keyPressed(e);
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
+		InputManager.keyReleased(e);
 		panel.keyReleased(e);
 	}
 
