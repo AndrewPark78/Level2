@@ -1,4 +1,5 @@
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 
@@ -10,6 +11,7 @@ public class GameObject {
 	int width;
 	int height;
 	BufferedImage image;
+	Rectangle cbox;
 
 	public GameObject(int x, int y, int width, int height, BufferedImage image) {
 		this.x = x;
@@ -41,7 +43,15 @@ public class GameObject {
 		// TODO Auto-generated method stub
 
 	}
-public void changeImage(BufferedImage change){
-	this.image=change;
-}
+
+	public void changeImage(BufferedImage change) {
+		this.image = change;
+	}
+
+	boolean checkColide(Rectangle cbox) {
+return this.cbox.intersects(cbox);
+	}
+	Rectangle getCbox(){
+	return this.cbox;	
+	}
 }

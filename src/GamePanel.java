@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -25,7 +26,7 @@ public class GamePanel extends JPanel implements ActionListener {
 	GameObject enemy2;
 	GameObject backg;
 	int spearLoc;
-
+boolean lose;
 	GamePanel() {
 		objects = new ArrayList<GameObject>();
 
@@ -58,12 +59,24 @@ public class GamePanel extends JPanel implements ActionListener {
 
 		for (GameObject go : objects) {
 			go.paint(gra);
+			if(lose == true){
+				gra.setColor(Color.BLACK);
+				gra.setFont(new Font(Font.SANS_SERIF, 150, 150));
+				gra.drawString("Game Over. You Lose.", 200, 200);
+			}
 		}
 	}
 
 	void update() {
 		for (GameObject go : objects) {
-			go.update();
+		
+			if(player.checkColide(enemy.getCbox())){
+				System.out.println("hi");
+				lose = true;
+			}else{
+				go.update();
+				lose = false;
+			}
 		}
 	}
 

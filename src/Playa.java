@@ -12,7 +12,6 @@ public class Playa extends GameObject {
 	BufferedImage left;
 	BufferedImage right;
 	Rectangle spear;
-	Rectangle body;
 	boolean faceR;
 	int sX = 500;
 	int sXR = 700;
@@ -31,7 +30,7 @@ public class Playa extends GameObject {
 		aKey = false;
 		dKey = false;
 		spear = new Rectangle(sX, sY, sW, sH);
-		body = new Rectangle(bX, bY, bW, bH);
+		cbox = new Rectangle(bX, bY, bW, bH);
 	}
 
 	void update() {
@@ -60,9 +59,9 @@ public class Playa extends GameObject {
 			spear.setBounds(sX, sY, sW, sH);
 		}
 		if (faceR) {
-			body.setBounds(bXR, bY, bW, bH);
+			cbox.setBounds(bXR, bY, bW, bH);
 		} else {
-			body.setBounds(bX, bY, bW, bH);
+			cbox.setBounds(bX, bY, bW, bH);
 		}
 	}
 
@@ -70,7 +69,7 @@ public class Playa extends GameObject {
 		gra.drawImage(image, x, y, width, height, null);
 		gra.setColor(Color.red);
 		gra.drawRect((int) spear.getX(), (int) spear.getY(), (int) spear.getWidth(), (int) spear.getHeight());
-		gra.drawRect((int) body.getX(), (int) body.getY(), (int) body.getWidth(), (int) body.getHeight());
+		gra.drawRect((int) cbox.getX(), (int) cbox.getY(), (int) cbox.getWidth(), (int) cbox.getHeight());
 	}
 
 	public void keyTyped(KeyEvent e) {
