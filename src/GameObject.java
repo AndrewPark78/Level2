@@ -11,7 +11,10 @@ public class GameObject {
 	int width;
 	int height;
 	BufferedImage image;
-	Rectangle cbox;
+	Rectangle cboxLose;
+	Rectangle cboxWin;
+
+	public int id;
 
 	public GameObject(int x, int y, int width, int height, BufferedImage image) {
 		this.x = x;
@@ -48,10 +51,36 @@ public class GameObject {
 		this.image = change;
 	}
 
-	boolean checkColide(Rectangle cbox) {
-return this.cbox.intersects(cbox);
+	boolean checkKill(Rectangle cbox) {
+		return this.cboxWin.intersects(cbox);
 	}
-	Rectangle getCbox(){
-	return this.cbox;	
+
+	Rectangle getCboxWin() {
+		return this.cboxWin;
+	}
+
+	boolean checkColide(Rectangle cbox) {
+		return this.cboxLose.intersects(cbox);
+	}
+
+	Rectangle getCbox() {
+		return this.cboxLose;
+	}
+
+	boolean checkKill2(Rectangle cbox) {
+		System.out.println(this.cboxWin);
+		return this.cboxWin.intersects(cbox);
+	}
+
+	Rectangle getcboxWin() {
+		return this.cboxWin;
+	}
+
+	boolean checkColide2(Rectangle cbox) {
+		return this.cboxLose.intersects(cbox);
+	}
+
+	Rectangle getCbox2() {
+		return this.cboxLose;
 	}
 }
