@@ -13,7 +13,7 @@ public class GameObject {
 	BufferedImage image;
 	Rectangle cboxLose;
 	Rectangle cboxWin;
-
+	public boolean dead = false;
 	public int id;
 
 	public GameObject(int x, int y, int width, int height, BufferedImage image) {
@@ -68,7 +68,6 @@ public class GameObject {
 	}
 
 	boolean checkKill2(Rectangle cbox) {
-		System.out.println(this.cboxWin);
 		return this.cboxWin.intersects(cbox);
 	}
 

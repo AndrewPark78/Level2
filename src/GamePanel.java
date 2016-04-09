@@ -7,6 +7,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.Random;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
@@ -27,7 +28,8 @@ public class GamePanel extends JPanel implements ActionListener {
 	GameObject enemy2;
 	GameObject backg;
 	int spearLoc;
-	boolean lose;
+	Random rand = new Random();
+	boolean lose = false;
 
 	GamePanel() {
 		objects = new ArrayList<GameObject>();
@@ -61,47 +63,47 @@ public class GamePanel extends JPanel implements ActionListener {
 
 		for (GameObject go : objects) {
 			go.paint(gra);
+			// System.out.println(lose);
 			if (lose == true) {
 				gra.setColor(Color.BLACK);
 				gra.setFont(new Font(Font.SANS_SERIF, 150, 150));
 				gra.drawString("Game Over. You Lose.", 200, 200);
 			}
+			//System.out.println(lose + "2");
 		}
 	}
 
 	void update() {
+		addEnemies();
 		for (int i = 0; i < objects.size(); i++) {
 			GameObject obj = objects.get(i);
+
 			if (obj.id == 1) {
 
 				if (player.checkKill(obj.getCboxWin())) {
-					System.out.println("Bye");
+					// System.out.println("Bye");
 					objects.remove(obj);
 					((Enemy) obj).dead = true;
 				}
 
 				if (player.checkColide(obj.getCbox()) && ((Enemy) obj).dead == false) {
-					System.out.println("hi");
+					// System.out.println("hi");
 					lose = true;
-				} else {
-
-					lose = false;
+					//System.out.println(lose + "1");
 				}
 			}
 			if (obj.id == 2) {
 
-				if (player.checkKill2(obj.getcboxWin())) {
-					System.out.println("Goodbye");
+				if (player.checkKill(obj.getcboxWin())) {
+					// System.out.println("Goodbye");
 					objects.remove(obj);
-					((Enemy2) obj).dead2 = true;
+					((Enemy2) obj).dead = true;
 				}
 
-				if (player.checkColide2(obj.getCbox2()) && ((Enemy2) obj).dead2 == false) {
-					System.out.println("Hello");
+				if (player.checkColide(obj.getCbox()) && ((Enemy2) obj).dead == false) {
+					// System.out.println("Hello");
 					lose = true;
-				} else {
 
-					lose = false;
 				}
 			}
 
@@ -110,6 +112,20 @@ public class GamePanel extends JPanel implements ActionListener {
 			go.update();
 		}
 
+	}
+
+	void addEnemies() {
+		System.out.println(rand);
+		if (rand.nextInt(500) == 10) {
+			Enemy e = new Enemy(-200, 500, 300, 300, i2);
+			objects.add(e);
+			rand = new Random();
+		}
+		if (rand.nextInt(500) == 90) {
+			Enemy2 e2 = new Enemy2(2200, 500, 300, 300, i5);
+			objects.add(e2);
+			rand = new Random();
+		}
 	}
 
 	@Override
