@@ -12,6 +12,8 @@ public class Playa extends GameObject {
 	BufferedImage left;
 	BufferedImage right;
 	boolean faceR;
+	double time;
+	boolean startG = true;
 	int sX = 500;
 	int sXR = 740;
 	int sY = 550;
@@ -36,20 +38,20 @@ public class Playa extends GameObject {
 	void update() {
 		if (aKey) {
 			faceR = false;
-			x--;
-			sX--;
-			sXR--;
-			bX--;
-			bXR--;
+			x-=2;
+			sX-=2;
+			sXR-=2;
+			bX-=2;
+			bXR-=2;
 			this.changeImage(left);
 		}
 		if (dKey) {
 			faceR = true;
-			x++;
-			sX++;
-			sXR++;
-			bX++;
-			bXR++;
+			x+=2;
+			sX+=2;
+			sXR+=2;
+			bX+=2;
+			bXR+=2;
 			this.changeImage(right);
 		}
 
@@ -67,9 +69,9 @@ public class Playa extends GameObject {
 
 	public void paint(Graphics gra) {
 		gra.drawImage(image, x, y, width, height, null);
-		gra.setColor(Color.red);
-		gra.drawRect((int) cboxWin.getX(), (int) cboxWin.getY(), (int) cboxWin.getWidth(), (int) cboxWin.getHeight());
-		gra.drawRect((int) cboxLose.getX(), (int) cboxLose.getY(), (int) cboxLose.getWidth(), (int) cboxLose.getHeight());
+//		gra.setColor(Color.red);
+//		gra.drawRect((int) cboxWin.getX(), (int) cboxWin.getY(), (int) cboxWin.getWidth(), (int) cboxWin.getHeight());
+//		gra.drawRect((int) cboxLose.getX(), (int) cboxLose.getY(), (int) cboxLose.getWidth(), (int) cboxLose.getHeight());
 	}
 
 	public void keyTyped(KeyEvent e) {
@@ -85,25 +87,29 @@ public class Playa extends GameObject {
 		if (e.getKeyCode() == KeyEvent.VK_D) {
 			dKey = true;
 		}
-		if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-			this.changeImage(left);
-			faceR = false;
-			x -= 15;
-			sX -= 15;
-			sXR -= 15;
-			bX -= 15;
-			bXR -= 15;
+		if (System.currentTimeMillis() - time >= 500 || startG) {
+			startG = false;
+			if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+				this.changeImage(left);
+				faceR = false;
+				x -= 25;
+				sX -= 25;
+				sXR -= 25;
+				bX -= 25;
+				bXR -= 25;
+				time = System.currentTimeMillis();
 
-		}
-		if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-			this.changeImage(right);
-			faceR = true;
-			x += 15;
-			sX += 15;
-			sXR += 15;
-			bX += 15;
-			bXR += 15;
-
+			}
+			if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+				this.changeImage(right);
+				faceR = true;
+				x += 25;
+				sX += 25;
+				sXR += 25;
+				bX += 25;
+				bXR += 25;
+				time = System.currentTimeMillis();
+			}
 		}
 	}
 

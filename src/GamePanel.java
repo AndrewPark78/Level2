@@ -30,6 +30,8 @@ public class GamePanel extends JPanel implements ActionListener {
 	int spearLoc;
 	Random rand = new Random();
 	boolean lose = false;
+	boolean ahh = false;
+	int score = 0;
 
 	GamePanel() {
 		objects = new ArrayList<GameObject>();
@@ -39,7 +41,7 @@ public class GamePanel extends JPanel implements ActionListener {
 			i2 = ImageIO.read(this.getClass().getResourceAsStream("Smorc.png"));
 			i3 = ImageIO.read(this.getClass().getResourceAsStream("wall.jpg"));
 			i4 = ImageIO.read(this.getClass().getResourceAsStream("Knight2-Right.png"));
-			i5 = ImageIO.read(this.getClass().getResourceAsStream("RightAttack.png"));
+			i5 = ImageIO.read(this.getClass().getResourceAsStream("Zombie.png"));
 		} catch (Exception ex) {
 		}
 		player = new Playa(500, 500, 300, 300, i);
@@ -49,12 +51,6 @@ public class GamePanel extends JPanel implements ActionListener {
 		backg = new GameObject(0, 0, 2000, 1000, i3);
 		objects.add(backg);
 		objects.add(player);
-		objects.add(enemy);
-		objects.add(enemy2);
-		for (int i = 0; i < 10; i++) {
-			objects.add(new Enemy(x - 300, 500, 300, 300, i2));
-			objects.add(new Enemy2(x + 2200, 500, 300, 300, i5));
-		}
 		timer = new Timer(1000 / 60, this);
 		timer.start();
 	}
@@ -64,32 +60,44 @@ public class GamePanel extends JPanel implements ActionListener {
 		for (GameObject go : objects) {
 			go.paint(gra);
 			// System.out.println(lose);
-			if (lose == true) {
-				gra.setColor(Color.BLACK);
-				gra.setFont(new Font(Font.SANS_SERIF, 150, 150));
-				gra.drawString("Game Over. You Lose.", 200, 200);
-			}
-			//System.out.println(lose + "2");
+
+			// System.out.println(lose + "2");
+		}
+		gra.setColor(Color.BLACK);
+		gra.setFont(new Font(Font.SANS_SERIF, 40, 40));
+		gra.drawString("Your score is " + score, 40, 40);
+		if (lose) {
+			gra.setColor(Color.BLACK);
+			gra.setFont(new Font(Font.SANS_SERIF, 150, 150));
+			gra.drawString("Game Over. You Lose.", 200, 200);
+		}
+		if(score == 200){
+			gra.setColor(Color.BLACK);
+			gra.setFont(new Font(Font.SANS_SERIF, 150, 150));
+			gra.drawString("You saved the kingdom!", 150, 200);
 		}
 	}
 
 	void update() {
-		addEnemies();
+//		if (!ahh) {
+			addEnemies();
+//		}
 		for (int i = 0; i < objects.size(); i++) {
 			GameObject obj = objects.get(i);
 
 			if (obj.id == 1) {
 
 				if (player.checkKill(obj.getCboxWin())) {
-					// System.out.println("Bye");
 					objects.remove(obj);
 					((Enemy) obj).dead = true;
+					score += 2;
+					ahh=false;
 				}
 
 				if (player.checkColide(obj.getCbox()) && ((Enemy) obj).dead == false) {
 					// System.out.println("hi");
 					lose = true;
-					//System.out.println(lose + "1");
+					// System.out.println(lose + "1");
 				}
 			}
 			if (obj.id == 2) {
@@ -98,10 +106,12 @@ public class GamePanel extends JPanel implements ActionListener {
 					// System.out.println("Goodbye");
 					objects.remove(obj);
 					((Enemy2) obj).dead = true;
+					score++;
+					ahh=false;
 				}
 
 				if (player.checkColide(obj.getCbox()) && ((Enemy2) obj).dead == false) {
-					// System.out.println("Hello");
+					// System.out.println(lose + "1");
 					lose = true;
 
 				}
@@ -116,14 +126,16 @@ public class GamePanel extends JPanel implements ActionListener {
 
 	void addEnemies() {
 		System.out.println(rand);
-		if (rand.nextInt(500) == 10) {
+		if (rand.nextInt(100) == 10) {
 			Enemy e = new Enemy(-200, 500, 300, 300, i2);
 			objects.add(e);
+			ahh = true;
 			rand = new Random();
 		}
-		if (rand.nextInt(500) == 90) {
+		if (rand.nextInt(100) == 10) {
 			Enemy2 e2 = new Enemy2(2200, 500, 300, 300, i5);
 			objects.add(e2);
+			ahh = true;
 			rand = new Random();
 		}
 	}
@@ -131,8 +143,11 @@ public class GamePanel extends JPanel implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		update();
-		repaint();
+
+		if (!lose && score < 200) {
+			update();
+			repaint();
+		}
 
 	}
 
@@ -143,6 +158,9 @@ public class GamePanel extends JPanel implements ActionListener {
 
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
+		if (e.getKeyCode() == KeyEvent.VK_R) {
+			lose = false;
+		}
 		player.keyPressed(e);
 
 	}

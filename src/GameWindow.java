@@ -3,7 +3,7 @@ import java.awt.event.KeyListener;
 
 import javax.swing.JFrame;
 
-public class GameWindow implements KeyListener{
+public class GameWindow implements KeyListener {
 	JFrame frame;
 	GamePanel panel;
 
@@ -20,7 +20,7 @@ public class GameWindow implements KeyListener{
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
 		frame.setSize(2000, 1000);
-		
+
 	}
 
 	@Override
