@@ -23,10 +23,12 @@ public class GamePanel extends JPanel implements ActionListener {
 	BufferedImage i3;
 	BufferedImage i4;
 	BufferedImage i5;
+	
 	GameObject player;
 	GameObject enemy;
 	GameObject enemy2;
 	GameObject backg;
+	GameObject menuScreen;
 	int spearLoc;
 	Random rand = new Random();
 	boolean lose = false;
@@ -42,6 +44,7 @@ public class GamePanel extends JPanel implements ActionListener {
 			i3 = ImageIO.read(this.getClass().getResourceAsStream("wall.jpg"));
 			i4 = ImageIO.read(this.getClass().getResourceAsStream("Knight2-Right.png"));
 			i5 = ImageIO.read(this.getClass().getResourceAsStream("Zombie.png"));
+			//i6 = ImageIO.read(this.getClass().getResourceAsStream("menuScreen"));
 		} catch (Exception ex) {
 		}
 		player = new Playa(500, 500, 300, 300, i);
@@ -49,6 +52,8 @@ public class GamePanel extends JPanel implements ActionListener {
 		enemy = new Enemy(x, 500, 300, 300, i2);
 		enemy2 = new Enemy2(x + 2500, 500, 300, 300, i5);
 		backg = new GameObject(0, 0, 2000, 1000, i3);
+		//menuScreen = new GameObject(0, 0, 800, 300, i6);
+		objects.add(menuScreen);
 		objects.add(backg);
 		objects.add(player);
 		timer = new Timer(1000 / 60, this);
@@ -125,7 +130,7 @@ public class GamePanel extends JPanel implements ActionListener {
 	}
 
 	void addEnemies() {
-		System.out.println(rand);
+	//	System.out.println(rand);
 		if (rand.nextInt(100) == 10) {
 			Enemy e = new Enemy(-200, 500, 300, 300, i2);
 			objects.add(e);
