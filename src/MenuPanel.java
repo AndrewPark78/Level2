@@ -31,19 +31,19 @@ public class MenuPanel extends JPanel implements ActionListener {
 	}
 
 	public void paintComponent(Graphics gra) {
-		menuScreen.paint(gra);
+		gra.drawImage(i6, 0, 0,500,300,null);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		if (e.getSource().equals(start)) {
-			panel = new GamePanel();
-			frame1.add(panel);
-			frame1.setSize(2000, 1000);
-			frame2.setVisible(false);
-			frame1.setVisible(true);
-		}
+//		if (e.getSource().equals(start)) {
+//			panel = new GamePanel();
+//			frame1.add(panel);
+//			frame1.setSize(2000, 1000);
+//			frame2.setVisible(false);
+//			frame1.setVisible(true);
+//		}
 		if (e.getSource().equals(instructions)) {
 			JOptionPane.showMessageDialog(null, "The object of the game is to");
 		}

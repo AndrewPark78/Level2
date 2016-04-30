@@ -13,7 +13,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-public class GamePanel extends JPanel implements ActionListener {
+public class GamePanel extends JPanel implements ActionListener{
 	Timer timer;
 	int x = 0;
 	ArrayList<GameObject> objects;
@@ -23,7 +23,8 @@ public class GamePanel extends JPanel implements ActionListener {
 	BufferedImage i3;
 	BufferedImage i4;
 	BufferedImage i5;
-	
+	BufferedImage i6;
+
 	GameObject player;
 	GameObject enemy;
 	GameObject enemy2;
@@ -44,7 +45,7 @@ public class GamePanel extends JPanel implements ActionListener {
 			i3 = ImageIO.read(this.getClass().getResourceAsStream("wall.jpg"));
 			i4 = ImageIO.read(this.getClass().getResourceAsStream("Knight2-Right.png"));
 			i5 = ImageIO.read(this.getClass().getResourceAsStream("Zombie.png"));
-			//i6 = ImageIO.read(this.getClass().getResourceAsStream("menuScreen"));
+			i6 = ImageIO.read(this.getClass().getResourceAsStream("menuScreen"));
 		} catch (Exception ex) {
 		}
 		player = new Playa(500, 500, 300, 300, i);
@@ -52,7 +53,7 @@ public class GamePanel extends JPanel implements ActionListener {
 		enemy = new Enemy(x, 500, 300, 300, i2);
 		enemy2 = new Enemy2(x + 2500, 500, 300, 300, i5);
 		backg = new GameObject(0, 0, 2000, 1000, i3);
-		//menuScreen = new GameObject(0, 0, 800, 300, i6);
+		menuScreen = new GameObject(0, 0, 800, 300, i6);
 		objects.add(menuScreen);
 		objects.add(backg);
 		objects.add(player);
@@ -158,6 +159,7 @@ public class GamePanel extends JPanel implements ActionListener {
 
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
+		//System.out.println("yoooo");
 		player.keyTyped(e);
 	}
 
