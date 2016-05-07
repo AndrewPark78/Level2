@@ -13,7 +13,11 @@ public class Enemy2 extends GameObject {
 	}
 
 	void update() {
-		x-=1.5;
+		if(GamePanel.score > 100){
+			x-=3.5;
+		}else{
+		x-=3;
+		}
 		cboxLose.setBounds(x + 35, y, 190, 400);
 		cboxWin.setBounds(x + 150, y + 40, 50, 50);
 	}

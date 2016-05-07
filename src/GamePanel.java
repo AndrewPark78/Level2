@@ -24,17 +24,18 @@ public class GamePanel extends JPanel implements ActionListener{
 	BufferedImage i4;
 	BufferedImage i5;
 	BufferedImage i6;
-
+	BufferedImage i7;
 	GameObject player;
 	GameObject enemy;
 	GameObject enemy2;
 	GameObject backg;
 	GameObject menuScreen;
+	GameObject badguy;
 	int spearLoc;
 	Random rand = new Random();
 	boolean lose = false;
 	boolean ahh = false;
-	int score = 0;
+	public static int score = 0;
 
 	GamePanel() {
 		objects = new ArrayList<GameObject>();
@@ -46,6 +47,7 @@ public class GamePanel extends JPanel implements ActionListener{
 			i4 = ImageIO.read(this.getClass().getResourceAsStream("Knight2-Right.png"));
 			i5 = ImageIO.read(this.getClass().getResourceAsStream("Zombie.png"));
 			i6 = ImageIO.read(this.getClass().getResourceAsStream("menuScreen"));
+			i7 = ImageIO.read(this.getClass().getResourceAsStream("badguy"));
 		} catch (Exception ex) {
 		}
 		player = new Playa(500, 500, 300, 300, i);
@@ -54,11 +56,14 @@ public class GamePanel extends JPanel implements ActionListener{
 		enemy2 = new Enemy2(x + 2500, 500, 300, 300, i5);
 		backg = new GameObject(0, 0, 2000, 1000, i3);
 		menuScreen = new GameObject(0, 0, 800, 300, i6);
+		badguy = new GameObject(1000,200,200,200, i7);
 		objects.add(menuScreen);
 		objects.add(backg);
 		objects.add(player);
+		objects.add(badguy);
 		timer = new Timer(1000 / 60, this);
 		timer.start();
+		new Thread(new SoundPlayer("Background.wav")).start();
 	}
 
 	public void paintComponent(Graphics gra) {
@@ -95,6 +100,7 @@ public class GamePanel extends JPanel implements ActionListener{
 
 				if (player.checkKill(obj.getCboxWin())) {
 					objects.remove(obj);
+					new Thread(new SoundPlayer("Killsound.wav")).start();
 					((Enemy) obj).dead = true;
 					score += 2;
 					ahh=false;
@@ -111,6 +117,7 @@ public class GamePanel extends JPanel implements ActionListener{
 				if (player.checkKill(obj.getcboxWin())) {
 					// System.out.println("Goodbye");
 					objects.remove(obj);
+					new Thread(new SoundPlayer("Killsound.wav")).start();
 					((Enemy2) obj).dead = true;
 					score++;
 					ahh=false;

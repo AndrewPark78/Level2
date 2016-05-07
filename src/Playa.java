@@ -38,20 +38,20 @@ public class Playa extends GameObject {
 	void update() {
 		if (aKey) {
 			faceR = false;
-			x-=2;
-			sX-=2;
-			sXR-=2;
-			bX-=2;
-			bXR-=2;
+			x-=4;
+			sX-=4;
+			sXR-=4;
+			bX-=4;
+			bXR-=4;
 			this.changeImage(left);
 		}
 		if (dKey) {
 			faceR = true;
-			x+=2;
-			sX+=2;
-			sXR+=2;
-			bX+=2;
-			bXR+=2;
+			x+=4;
+			sX+=4;
+			sXR+=4;
+			bX+=4;
+			bXR+=4;
 			this.changeImage(right);
 		}
 
@@ -90,24 +90,26 @@ public class Playa extends GameObject {
 		if (System.currentTimeMillis() - time >= 500 || startG) {
 			startG = false;
 			if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+				new Thread(new SoundPlayer("Attack.wav")).start();
 				this.changeImage(left);
 				faceR = false;
-				x -= 25;
-				sX -= 25;
-				sXR -= 25;
-				bX -= 25;
-				bXR -= 25;
+				x -= 50;
+				sX -= 50;
+				sXR -= 50;
+				bX -= 50;
+				bXR -= 50;
 				time = System.currentTimeMillis();
 
 			}
 			if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+				new Thread(new SoundPlayer("Attack.wav")).start();
 				this.changeImage(right);
 				faceR = true;
-				x += 25;
-				sX += 25;
-				sXR += 25;
-				bX += 25;
-				bXR += 25;
+				x += 50;
+				sX += 50;
+				sXR += 50;
+				bX += 50;
+				bXR += 50;
 				time = System.currentTimeMillis();
 			}
 		}
