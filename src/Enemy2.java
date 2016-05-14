@@ -14,7 +14,7 @@ public class Enemy2 extends GameObject {
 
 	void update() {
 		if(GamePanel.score > 100){
-			x-=3.5;
+			x-=4;
 		}else{
 		x-=3;
 		}

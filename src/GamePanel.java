@@ -7,6 +7,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Random;
 
 import javax.imageio.ImageIO;
@@ -25,44 +26,52 @@ public class GamePanel extends JPanel implements ActionListener{
 	BufferedImage i5;
 	BufferedImage i6;
 	BufferedImage i7;
+	BufferedImage i8;
 	GameObject player;
 	GameObject enemy;
 	GameObject enemy2;
 	GameObject backg;
 	GameObject menuScreen;
 	GameObject badguy;
+	GameObject floor;
 	int spearLoc;
+	long difference;
+	long lStartTime;
 	Random rand = new Random();
-	boolean lose = false;
+	public static boolean lose = false;
 	boolean ahh = false;
 	public static int score = 0;
-
+	public long gameLength = 20;
 	GamePanel() {
 		objects = new ArrayList<GameObject>();
 		enemys = new ArrayList<GameObject>();
+		lStartTime = new Date().getTime();
 		try {
 			i = ImageIO.read(this.getClass().getResourceAsStream("Knight2.png"));
 			i2 = ImageIO.read(this.getClass().getResourceAsStream("Smorc.png"));
 			i3 = ImageIO.read(this.getClass().getResourceAsStream("wall.jpg"));
 			i4 = ImageIO.read(this.getClass().getResourceAsStream("Knight2-Right.png"));
 			i5 = ImageIO.read(this.getClass().getResourceAsStream("Zombie.png"));
-			i6 = ImageIO.read(this.getClass().getResourceAsStream("menuScreen"));
-			i7 = ImageIO.read(this.getClass().getResourceAsStream("badguy"));
+			i6 = ImageIO.read(this.getClass().getResourceAsStream("menuScreen.png"));
+			i7 = ImageIO.read(this.getClass().getResourceAsStream("badguy.png"));
+			i8 = ImageIO.read(this.getClass().getResourceAsStream("Ground.jpg"));
 		} catch (Exception ex) {
 		}
 		player = new Playa(500, 500, 300, 300, i);
 		((Playa) player).loadBoth(i, i4);
 		enemy = new Enemy(x, 500, 300, 300, i2);
 		enemy2 = new Enemy2(x + 2500, 500, 300, 300, i5);
+		floor = new GameObject(0,750, 2000, 1000, i8);
 		backg = new GameObject(0, 0, 2000, 1000, i3);
 		menuScreen = new GameObject(0, 0, 800, 300, i6);
-		badguy = new GameObject(1000,200,200,200, i7);
+		badguy = new BadGuy(700,50,400,400, i7);
 		objects.add(menuScreen);
 		objects.add(backg);
+		objects.add(floor);
 		objects.add(player);
 		objects.add(badguy);
-		timer = new Timer(1000 / 60, this);
-		timer.start();
+		//timer = new Timer(1000 / 60, this);
+		//timer.start();
 		new Thread(new SoundPlayer("Background.wav")).start();
 	}
 
@@ -87,12 +96,18 @@ public class GamePanel extends JPanel implements ActionListener{
 			gra.setFont(new Font(Font.SANS_SERIF, 150, 150));
 			gra.drawString("You saved the kingdom!", 150, 200);
 		}
+		//if(difference/1000 == gameLength){
+		//	lose = true;
+		//}
 	}
 
 	void update() {
 //		if (!ahh) {
 			addEnemies();
 //		}
+		//	long lEndTime = new Date().getTime();
+		//	difference = lEndTime - lStartTime;
+			
 		for (int i = 0; i < objects.size(); i++) {
 			GameObject obj = objects.get(i);
 
@@ -172,9 +187,9 @@ public class GamePanel extends JPanel implements ActionListener{
 
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
-		if (e.getKeyCode() == KeyEvent.VK_R) {
-			lose = false;
-		}
+//		if (e.getKeyCode() == KeyEvent.VK_R) {
+//			lose = false;
+//		}
 		player.keyPressed(e);
 
 	}
