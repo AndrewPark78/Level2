@@ -93,8 +93,10 @@ public class GameWindow implements KeyListener, ActionListener {
 		if (e.getSource().equals(instructions)) {
 			JOptionPane.showMessageDialog(null,
 					"The objective is simple. Defend the castle by killing endless waves of monsters. \n"
-							+ "To save the kingdom you must destroy 200 points worth of monsters. \n Use 'a' and 'd' to move and the arrow keys to lunge left and right."
-							+ " \n Good luck soldier. Also there is a evil demon who will eat your soul if you take to long. :D");
+							+ "To save the kingdom you must destroy 200 points worth of monsters. \n"
+							+ "Use 'a' and 'd' to move and the arrow keys to lunge left and right.\n"
+							+ "Good luck soldier. You have 10 seconds to practice your moves before the enemies arrive. \n"
+							+ "Also, there is a evil demon who will eat your soul if you take to long. :D");
 		}
 	}
 }

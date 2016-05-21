@@ -10,13 +10,13 @@ public class BadGuy extends GameObject {
 	}
 
 	void update() {
-		if ((GamePanel.score >= 10) && neverRoared) {
+		if ((GamePanel.score >= 100) && neverRoared) {
 			new Thread(new SoundPlayer("Roar1.wav")).start();
 			System.out.println("ROAR");
 			neverRoared = false;
 		}
-		if (GamePanel.lose = true) {
-			//badguy.x = playa.x;
-		}
+//		if (GamePanel.lose = true) {
+//			//badguy.x = playa.x;
+//		}
 	}
 }

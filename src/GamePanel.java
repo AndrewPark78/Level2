@@ -14,7 +14,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-public class GamePanel extends JPanel implements ActionListener{
+public class GamePanel extends JPanel implements ActionListener {
 	Timer timer;
 	int x = 0;
 	ArrayList<GameObject> objects;
@@ -35,17 +35,17 @@ public class GamePanel extends JPanel implements ActionListener{
 	GameObject badguy;
 	GameObject floor;
 	int spearLoc;
-	long difference;
-	long lStartTime;
+	long start;
+	long elapsed;
 	Random rand = new Random();
-	public static boolean lose = false;
+	public boolean lose = false;
 	boolean ahh = false;
 	public static int score = 0;
-	public long gameLength = 20;
+
 	GamePanel() {
 		objects = new ArrayList<GameObject>();
 		enemys = new ArrayList<GameObject>();
-		lStartTime = new Date().getTime();
+		start = System.currentTimeMillis() / 1000;
 		try {
 			i = ImageIO.read(this.getClass().getResourceAsStream("Knight2.png"));
 			i2 = ImageIO.read(this.getClass().getResourceAsStream("Smorc.png"));
@@ -61,17 +61,17 @@ public class GamePanel extends JPanel implements ActionListener{
 		((Playa) player).loadBoth(i, i4);
 		enemy = new Enemy(x, 500, 300, 300, i2);
 		enemy2 = new Enemy2(x + 2500, 500, 300, 300, i5);
-		floor = new GameObject(0,750, 2000, 1000, i8);
+		floor = new GameObject(0, 750, 2000, 1000, i8);
 		backg = new GameObject(0, 0, 2000, 1000, i3);
 		menuScreen = new GameObject(0, 0, 800, 300, i6);
-		badguy = new BadGuy(700,50,400,400, i7);
+		badguy = new BadGuy(700, 50, 400, 400, i7);
 		objects.add(menuScreen);
 		objects.add(backg);
 		objects.add(floor);
 		objects.add(player);
 		objects.add(badguy);
-		//timer = new Timer(1000 / 60, this);
-		//timer.start();
+		timer = new Timer(1000 / 60, this);
+		timer.start();
 		new Thread(new SoundPlayer("Background.wav")).start();
 	}
 
@@ -83,7 +83,7 @@ public class GamePanel extends JPanel implements ActionListener{
 
 			// System.out.println(lose + "2");
 		}
-		gra.setColor(Color.BLACK);
+		gra.setColor(Color.RED);
 		gra.setFont(new Font(Font.SANS_SERIF, 40, 40));
 		gra.drawString("Your score is " + score, 40, 40);
 		if (lose) {
@@ -91,23 +91,24 @@ public class GamePanel extends JPanel implements ActionListener{
 			gra.setFont(new Font(Font.SANS_SERIF, 150, 150));
 			gra.drawString("Game Over. You Lose.", 200, 200);
 		}
-		if(score == 200){
+		if (score == 200 || score == 201) {
 			gra.setColor(Color.BLACK);
 			gra.setFont(new Font(Font.SANS_SERIF, 150, 150));
 			gra.drawString("You saved the kingdom!", 150, 200);
 		}
-		//if(difference/1000 == gameLength){
-		//	lose = true;
-		//}
+		// if(difference/1000 == gameLength){
+		// lose = true;
+		// }
 	}
 
 	void update() {
-//		if (!ahh) {
-			addEnemies();
-//		}
-		//	long lEndTime = new Date().getTime();
-		//	difference = lEndTime - lStartTime;
-			
+		// if (!ahh) {
+		addEnemies();
+		// }
+		// long lEndTime = new Date().getTime();
+		// difference = lEndTime - lStartTime;
+		long cur = System.currentTimeMillis() / 1000;
+		elapsed = cur - start;
 		for (int i = 0; i < objects.size(); i++) {
 			GameObject obj = objects.get(i);
 
@@ -118,7 +119,7 @@ public class GamePanel extends JPanel implements ActionListener{
 					new Thread(new SoundPlayer("Killsound.wav")).start();
 					((Enemy) obj).dead = true;
 					score += 2;
-					ahh=false;
+					ahh = false;
 				}
 
 				if (player.checkColide(obj.getCbox()) && ((Enemy) obj).dead == false) {
@@ -135,7 +136,7 @@ public class GamePanel extends JPanel implements ActionListener{
 					new Thread(new SoundPlayer("Killsound.wav")).start();
 					((Enemy2) obj).dead = true;
 					score++;
-					ahh=false;
+					ahh = false;
 				}
 
 				if (player.checkColide(obj.getCbox()) && ((Enemy2) obj).dead == false) {
@@ -153,18 +154,20 @@ public class GamePanel extends JPanel implements ActionListener{
 	}
 
 	void addEnemies() {
-	//	System.out.println(rand);
-		if (rand.nextInt(100) == 10) {
-			Enemy e = new Enemy(-200, 500, 300, 300, i2);
-			objects.add(e);
-			ahh = true;
-			rand = new Random();
-		}
-		if (rand.nextInt(100) == 10) {
-			Enemy2 e2 = new Enemy2(2200, 500, 300, 300, i5);
-			objects.add(e2);
-			ahh = true;
-			rand = new Random();
+		// System.out.println(rand);
+		if (elapsed >= 10) {
+			if (rand.nextInt(100) == 10) {
+				Enemy e = new Enemy(-200, 500, 300, 300, i2);
+				objects.add(e);
+				ahh = true;
+				rand = new Random();
+			}
+			if (rand.nextInt(100) == 10) {
+				Enemy2 e2 = new Enemy2(2200, 500, 300, 300, i5);
+				objects.add(e2);
+				ahh = true;
+				rand = new Random();
+			}
 		}
 	}
 
@@ -181,15 +184,20 @@ public class GamePanel extends JPanel implements ActionListener{
 
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
-		//System.out.println("yoooo");
+		// System.out.println("yoooo");
 		player.keyTyped(e);
 	}
 
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
-//		if (e.getKeyCode() == KeyEvent.VK_R) {
-//			lose = false;
-//		}
+
+		if (e.getKeyCode() == KeyEvent.VK_R) {
+			for (int i = 5; i < objects.size(); i++) {
+				GameObject obj = objects.get(i);
+				lose = false;
+				objects.remove(obj);
+			}
+		}
 		player.keyPressed(e);
 
 	}
