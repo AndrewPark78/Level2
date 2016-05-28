@@ -96,7 +96,8 @@ public class GameWindow implements KeyListener, ActionListener {
 							+ "To save the kingdom you must destroy 200 points worth of monsters. \n"
 							+ "Use 'a' and 'd' to move and the arrow keys to lunge left and right.\n"
 							+ "Good luck soldier. You have 10 seconds to practice your moves before the enemies arrive. \n"
-							+ "Also, there is a evil demon who will eat your soul if you take to long. :D");
+							+ "Also, there is a evil demon who will eat your soul if you take to long. :D \n"
+							+"PS(If you are so bad at the game you die, you can always use r to help ward off the demons.)");
 		}
 	}
 }

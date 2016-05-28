@@ -34,11 +34,12 @@ public class GamePanel extends JPanel implements ActionListener {
 	GameObject menuScreen;
 	GameObject badguy;
 	GameObject floor;
+	int deaths;
 	int spearLoc;
 	long start;
 	long elapsed;
 	Random rand = new Random();
-	public boolean lose = false;
+	public static boolean lose = false;
 	boolean ahh = false;
 	public static int score = 0;
 
@@ -54,7 +55,7 @@ public class GamePanel extends JPanel implements ActionListener {
 			i5 = ImageIO.read(this.getClass().getResourceAsStream("Zombie.png"));
 			i6 = ImageIO.read(this.getClass().getResourceAsStream("menuScreen.png"));
 			i7 = ImageIO.read(this.getClass().getResourceAsStream("badguy.png"));
-			i8 = ImageIO.read(this.getClass().getResourceAsStream("Ground.jpg"));
+			i8 = ImageIO.read(this.getClass().getResourceAsStream("imgres.jpg"));
 		} catch (Exception ex) {
 		}
 		player = new Playa(500, 500, 300, 300, i);
@@ -64,7 +65,7 @@ public class GamePanel extends JPanel implements ActionListener {
 		floor = new GameObject(0, 750, 2000, 1000, i8);
 		backg = new GameObject(0, 0, 2000, 1000, i3);
 		menuScreen = new GameObject(0, 0, 800, 300, i6);
-		badguy = new BadGuy(700, 50, 400, 400, i7);
+		badguy = new BadGuy(700, -375, 400, 400, i7);
 		objects.add(menuScreen);
 		objects.add(backg);
 		objects.add(floor);
@@ -86,6 +87,7 @@ public class GamePanel extends JPanel implements ActionListener {
 		gra.setColor(Color.RED);
 		gra.setFont(new Font(Font.SANS_SERIF, 40, 40));
 		gra.drawString("Your score is " + score, 40, 40);
+		gra.drawString("Deaths:" + deaths, 1600, 40);
 		if (lose) {
 			gra.setColor(Color.BLACK);
 			gra.setFont(new Font(Font.SANS_SERIF, 150, 150));
@@ -126,6 +128,7 @@ public class GamePanel extends JPanel implements ActionListener {
 					// System.out.println("hi");
 					lose = true;
 					// System.out.println(lose + "1");
+					deaths++;
 				}
 			}
 			if (obj.id == 2) {
@@ -142,6 +145,7 @@ public class GamePanel extends JPanel implements ActionListener {
 				if (player.checkColide(obj.getCbox()) && ((Enemy2) obj).dead == false) {
 					// System.out.println(lose + "1");
 					lose = true;
+					deaths++;
 
 				}
 			}
@@ -179,6 +183,10 @@ public class GamePanel extends JPanel implements ActionListener {
 			update();
 			repaint();
 		}
+		if(lose && score < 200){
+			badguy.update();
+			repaint();
+		}
 
 	}
 
@@ -196,6 +204,8 @@ public class GamePanel extends JPanel implements ActionListener {
 				GameObject obj = objects.get(i);
 				lose = false;
 				objects.remove(obj);
+				badguy.x = 700;
+				badguy.y=50;
 			}
 		}
 		player.keyPressed(e);

@@ -9,6 +9,8 @@ import javax.imageio.ImageIO;
 public class Playa extends GameObject {
 	boolean aKey;
 	boolean dKey;
+	public static int x=500;
+	public static int y=500;
 	BufferedImage left;
 	BufferedImage right;
 	boolean faceR;
