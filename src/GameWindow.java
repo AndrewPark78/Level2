@@ -10,7 +10,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-
+//SEND 1,000,000 bit coins to the email address TJ@gmail.com of I will continue my hacking in a more destructive manner
 public class GameWindow implements KeyListener, ActionListener {
 	JFrame frame;
 	GamePanel panel;
