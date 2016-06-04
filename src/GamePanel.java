@@ -42,7 +42,7 @@ public class GamePanel extends JPanel implements ActionListener {
 	public static boolean lose = false;
 	boolean ahh = false;
 	boolean enemyDying = false;
-	public static int score = 198;
+	public static int score = 0;
 
 	GamePanel() {
 		objects = new ArrayList<GameObject>();
