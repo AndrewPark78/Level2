@@ -10,7 +10,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-//SEND 1,000,000 bit coins to the email address TJ@gmail.com of I will continue my hacking in a more destructive manner
+//SEND 1,000,000 bit coins to the email address TJ@gmail.com of I will continue my hacking in a more destructive manner *or k lol bye lol
 public class GameWindow implements KeyListener, ActionListener {
 	JFrame frame;
 	GamePanel panel;
@@ -96,8 +96,8 @@ public class GameWindow implements KeyListener, ActionListener {
 							+ "To save the kingdom you must destroy 200 points worth of monsters. \n"
 							+ "Use 'a' and 'd' to move and the arrow keys to lunge left and right.\n"
 							+ "Good luck soldier. You have 10 seconds to practice your moves before the enemies arrive. \n"
-							+ "Also, there is a evil demon who will eat your soul if you take to long. :D \n"
-							+"PS(If you are so bad at the game you die, you can always use r to help ward off the demons.)");
+							+ "Also, there is a evil demon who will eat your soul if you take too long. :D \n"
+							+"PS(If you are so bad at the game that you die, you can always use r to help ward off the demons.)");
 		}
 	}
 }

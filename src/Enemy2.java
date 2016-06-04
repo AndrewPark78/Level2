@@ -3,7 +3,7 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 public class Enemy2 extends GameObject {
-
+public boolean ended = false;
 
 	public Enemy2(int x, int y, int width, int height, BufferedImage image) {
 		super(x, y, width, height, image);
@@ -13,6 +13,7 @@ public class Enemy2 extends GameObject {
 	}
 
 	void update() {
+		//while(!ended){
 		if(GamePanel.score > 100){
 			x-=4;
 		}else{
@@ -20,6 +21,7 @@ public class Enemy2 extends GameObject {
 		}
 		cboxLose.setBounds(x + 35, y, 190, 400);
 		cboxWin.setBounds(x + 150, y + 40, 50, 50);
+		//}
 	}
 
 	public void paint(Graphics gra) {

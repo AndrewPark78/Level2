@@ -41,7 +41,8 @@ public class GamePanel extends JPanel implements ActionListener {
 	Random rand = new Random();
 	public static boolean lose = false;
 	boolean ahh = false;
-	public static int score = 0;
+	boolean enemyDying = false;
+	public static int score = 198;
 
 	GamePanel() {
 		objects = new ArrayList<GameObject>();
@@ -104,6 +105,7 @@ public class GamePanel extends JPanel implements ActionListener {
 	}
 
 	void update() {
+		if (!lose && score < 200) {
 		// if (!ahh) {
 		addEnemies();
 		// }
@@ -154,7 +156,21 @@ public class GamePanel extends JPanel implements ActionListener {
 		for (GameObject go : objects) {
 			go.update();
 		}
-
+		}
+		else if(score >= 200){
+			System.out.println("rekt");
+			enemyDying = true;
+			for (GameObject go : objects) {
+				if(go.id!=1&&go.id!=2&&go.id!=3){
+				go.update();
+				}
+//				else if(go.id==1){
+//					((Enemy) go).ended=true;
+//				}else if(go.id==2){
+//					((Enemy2) go).ended=true;
+//				}
+			}
+		}
 	}
 
 	void addEnemies() {
@@ -179,7 +195,7 @@ public class GamePanel extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 
-		if (!lose && score < 200) {
+		if (!lose && score <= 200 || enemyDying && score >=200) {
 			update();
 			repaint();
 		}
